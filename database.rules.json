@@ -1,0 +1,32 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": false,
+    "games": {
+      ".write": "auth != null",
+      "$match": {
+        ".validate": "$match.matches(/^(0-[1-4]|1-[2-4]|2-[3-4]|3-4)$/) && newData.hasChildren(['slot'])",
+        "slot": {
+          ".validate": "newData.isString() && newData.val().matches(/^202[67]-[0-9]{2}-[0-9]{2}_(1000|1100|1200|1300)$/)"
+        },
+        "result": {
+          ".validate": "newData.isString() && newData.val().length <= 80"
+        },
+        "winner": {
+          ".validate": "newData.isString() && newData.val().matches(/^(0|1|2|3|4|draw)$/)"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "playerAvailability": {
+      "$player": {
+        "$slot": {
+          ".write": "auth != null && $player.matches(/^[0-9]$/) && $slot.matches(/^202[67]-[0-9]{2}-[0-9]{2}_(1000|1100|1200|1300)$/)",
+          ".validate": "newData.val() === true"
+        }
+      }
+    }
+  }
+}
