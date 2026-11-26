@@ -1,15 +1,12 @@
-V4B – PULJE 2 · VERSION 2
-
-1. Opret et nyt GitHub-repository, fx vintergolf-pulje2.
-2. Læg index.html og firebase-config.js i roden. GitHub Pages: Settings > Pages > Deploy from a branch > main / root. Åbn det viste link. Appen kører i lokal demotilstand.
-3. Opret et Firebase-projekt på console.firebase.google.com. Tilføj en webapp, og kopier dens firebaseConfig ind i firebase-config.js i stedet for null. Behold 'export const firebaseConfig ='.
-4. I Firebase: Authentication > Sign-in method > Anonymous > Enable.
-5. Opret Realtime Database (ikke Firestore), helst i en europæisk region. Kopier databaseURL fra databasen til firebaseConfig, hvis den mangler.
-6. Under Realtime Database > Rules: indsæt indholdet fra database.rules.json og tryk Publish. Commit og push den ændrede firebase-config.js til GitHub.
-7. Åbn GitHub Pages-linket igen. Der skal stå Fælles database · online. Test med to forskellige browsere, før linket deles. Demodata overføres ikke.
-
-VIGTIGT: Dette er en lille tillidsbaseret pulje-app. Anonym login sker automatisk; alle med adgang til databasen kan vælge og ændre enhver spillers tider. Reglerne kræver login, men giver ikke individuel adgangsbeskyttelse. Brug ikke til følsomme oplysninger. Spillernavne er synlige i webkoden; aftal deling med holdene. Offentlig GitHub Pages er ikke privat.
-
-Resultatoversigten viser V/D/T uden officiel pointberegning, da turneringsreglerne ikke er oplyst. Kampbookinger foretages efter aftale med modstanderen; ingen særskilt modpartsgodkendelse eller reservation af tee time. Appen forhindrer dobbeltbooking af et hold samme dag via fælles transaktion, men kontrollerer ikke golfbanens faktiske ledighed.
-
-Version 2: Vælg eget navn. Holdets tider er skæringen af de to spilleres tider. Kampforslag kræver alle fire spillere. Kopiér uge erstatter tider i valgte kommende uger. Tidligere holdregistreringer bruges ikke.
+Version 3: Behold eksisterende firebase-config.js. Før ibrugtagning: lås databasen, deaktiver Anonymous, aktiver Email/Password, opret 10 brugere med spiller1@vintergolf.invalid til spiller10@vintergolf.invalid og individuelle adgangskoder (mindst 6 tegn, gerne 12+). Opret members i Realtime Database med hver brugers UID som nøgle og spillernummer 0–9 som tal. Fjern testdata games og playerAvailability. Publicer nye regler. Erstat index.html og database.rules.json lokalt og commit/push. Test login og adgang på flere enheder. Ingen rigtig mailadresse kræves, men adgangskoder kan ikke nulstilles via mail; administrator må hjælpe.
+Spillerorden:
+1: Frank Larsen
+2: Peter Jacobsen
+3: Niels Jørgensen
+4: Henrik Fogtmann
+5: Peter T. Petersen
+6: Jan Westfael Larsen
+7: Jan Dam Jensen
+8: Henning Bast Nielsen
+9: Leif Hansen
+10: Henning Mortensen

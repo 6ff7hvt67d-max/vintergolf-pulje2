@@ -1,9 +1,8 @@
 {
   "rules": {
-    ".read": "auth != null",
+    ".read": false,
     ".write": false,
     "games": {
-      ".write": "auth != null",
       "$match": {
         ".validate": "$match.matches(/^(0-[1-4]|1-[2-4]|2-[3-4]|3-4)$/) && newData.hasChildren(['slot'])",
         "slot": {
@@ -17,15 +16,23 @@
         },
         "$other": {
           ".validate": false
-        }
-      }
+        },
+        ".write": "auth != null && root.child('members').child(auth.uid).isNumber() && ((root.child('members').child(auth.uid).val() === 0 && ($match.beginsWith('0-') || $match.endsWith('-0'))) || (root.child('members').child(auth.uid).val() === 1 && ($match.beginsWith('0-') || $match.endsWith('-0'))) || (root.child('members').child(auth.uid).val() === 2 && ($match.beginsWith('1-') || $match.endsWith('-1'))) || (root.child('members').child(auth.uid).val() === 3 && ($match.beginsWith('1-') || $match.endsWith('-1'))) || (root.child('members').child(auth.uid).val() === 4 && ($match.beginsWith('2-') || $match.endsWith('-2'))) || (root.child('members').child(auth.uid).val() === 5 && ($match.beginsWith('2-') || $match.endsWith('-2'))) || (root.child('members').child(auth.uid).val() === 6 && ($match.beginsWith('3-') || $match.endsWith('-3'))) || (root.child('members').child(auth.uid).val() === 7 && ($match.beginsWith('3-') || $match.endsWith('-3'))) || (root.child('members').child(auth.uid).val() === 8 && ($match.beginsWith('4-') || $match.endsWith('-4'))) || (root.child('members').child(auth.uid).val() === 9 && ($match.beginsWith('4-') || $match.endsWith('-4'))))"
+      },
+      ".read": "auth != null && root.child('members').child(auth.uid).isNumber()"
     },
     "playerAvailability": {
       "$player": {
         "$slot": {
-          ".write": "auth != null && $player.matches(/^[0-9]$/) && $slot.matches(/^202[67]-[0-9]{2}-[0-9]{2}_(1000|1100|1200|1300)$/)",
+          ".write": "auth != null && root.child('members').child(auth.uid).isNumber() && (($player === '0' && root.child('members').child(auth.uid).val() === 0) || ($player === '1' && root.child('members').child(auth.uid).val() === 1) || ($player === '2' && root.child('members').child(auth.uid).val() === 2) || ($player === '3' && root.child('members').child(auth.uid).val() === 3) || ($player === '4' && root.child('members').child(auth.uid).val() === 4) || ($player === '5' && root.child('members').child(auth.uid).val() === 5) || ($player === '6' && root.child('members').child(auth.uid).val() === 6) || ($player === '7' && root.child('members').child(auth.uid).val() === 7) || ($player === '8' && root.child('members').child(auth.uid).val() === 8) || ($player === '9' && root.child('members').child(auth.uid).val() === 9)) && $slot.matches(/^202[67]-[0-9]{2}-[0-9]{2}_(1000|1100|1200|1300)$/) && $slot >= '2026-11-26_1000' && $slot <= '2027-02-28_1300'",
           ".validate": "newData.val() === true"
         }
+      },
+      ".read": "auth != null && root.child('members').child(auth.uid).isNumber()"
+    },
+    "members": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid"
       }
     }
   }
